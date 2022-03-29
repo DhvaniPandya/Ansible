@@ -1,0 +1,37 @@
+- name: This play will create groups
+  hosts: dhvani-c-vm1.canadacentral.cloudapp.azure.com
+  vars:
+    grouplist1: group10
+    grouplist2: group20
+    userlist1: user10
+    userlist2: user20
+
+  tasks:
+    - name: Create group1
+      group:
+        name: "{{ grouplist1 }}"
+        state: present
+
+    - name: Create group2
+      group:
+        name: "{{ grouplist2 }}"
+        state: present
+
+    - name: Create user10
+      user:
+        name: "{{ userlist1 }}"
+        groups: "{{ grouplist1 }}"
+        uid: 1800
+        append: 1
+        state: present
+
+    - name: Create user20
+      user:
+        name: "{{ userlist2 }}"
+        groups: "{{ grouplist2 }}"
+        shell: /bin/bash
+        uid: 1900
+        append: 1
+        home: /home/ "{{userlist2}}"
+        state: present
+
